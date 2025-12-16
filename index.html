@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <title>在线客服</title>
+</head>
+
+<body>
+
+<h3>客服在线，请直接留言</h3>
+
+<script>
+(function(d){
+  var BASE_URL="https://app.chatwoot.com";
+  var g=d.createElement("script"),s=d.getElementsByTagName("script")[0];
+  g.src=BASE_URL+"/packs/js/sdk.js";
+  g.async=true;
+  s.parentNode.insertBefore(g,s);
+  g.onload=function(){
+    window.chatwootSDK.run({
+      websiteToken: "FQ4y7wiYQ67vWrxFupQKhSjf",
+      baseUrl: BASE_URL
+    })
+  }
+})(document);
+</script>
+
+</body>
+</html>
+
