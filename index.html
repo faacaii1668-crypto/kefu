@@ -2,34 +2,100 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>在线客服</title>
 
 <style>
+  /* ===== 基础重置 ===== */
+  * {
+    box-sizing: border-box;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+  }
+
   body {
     margin: 0;
-    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+
+    /* ===== 全屏背景 ===== */
+    background-image: url("bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    /* 禁止滚动，更像 App */
+    overflow: hidden;
+  }
+
+  /* ===== 半透明遮罩 ===== */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    background: #fff;
+    padding: 20px;
   }
+
+  .overlay h1 {
+    color: #fff;
+    font-size: 26px;
+    margin-bottom: 12px;
+  }
+
+  .overlay p {
+    color: #ddd;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 300px;
+  }
+
+  /* ===== 底部悬浮按钮 ===== */
   .kefu-btn {
-    margin-top: 40px;
+    position: fixed;
+    bottom: env(safe-area-inset-bottom, 20px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 360px;
   }
-  .kefu-btn img {
-    width: 200px;
-    max-width: 80%;
+
+  .kefu-btn button {
+    width: 100%;
+    height: 52px;
+    border: none;
+    border-radius: 26px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    box-shadow: 0 10px 25px rgba(0,0,0,.3);
     cursor: pointer;
+  }
+
+  .kefu-btn button:active {
+    transform: scale(0.97);
   }
 </style>
 </head>
 
 <body>
 
-<h3>客服在线，请点击或直接留言</h3>
+<!-- 遮罩内容 -->
+<div class="overlay">
+  <h1>客服在线</h1>
+  <p>如有任何问题，请点击下方按钮<br>或直接留言，我们将第一时间回复</p>
+</div>
 
-<!-- 点击入口图片 -->
+<!-- 悬浮按钮 -->
 <div class="kefu-btn">
-  <img src="kefu.jpg" alt="联系客服" onclick="openChat()">
+  <button onclick="openChat()">联系在线客服</button>
 </div>
 
 <!-- Chatwoot SDK -->
@@ -47,7 +113,7 @@
       baseUrl: BASE_URL
     });
 
-    // ⭐ 页面加载完成后，自动弹客服（延迟 1 秒更稳）
+    // 可选：1 秒后自动弹出
     setTimeout(function(){
       if (window.$chatwoot) {
         window.$chatwoot.toggle();
@@ -56,7 +122,6 @@
   }
 })(document,"script");
 
-// 点击图片也能弹
 function openChat() {
   if (window.$chatwoot) {
     window.$chatwoot.toggle();
@@ -66,7 +131,6 @@ function openChat() {
 
 </body>
 </html>
-
 
 
 
