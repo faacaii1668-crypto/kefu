@@ -1,42 +1,44 @@
 <!doctype html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>在线客服</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
-body{
-  margin:0;
-  padding:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  background:#f7f7f7;
-}
-img{
-  max-width:90%;
-}
-.tip{
-  position:fixed;
-  bottom:20px;
-  color:#666;
-  font-size:14px;
-}
+  body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: #fff;
+  }
+  .kefu-btn {
+    margin-top: 40px;
+  }
+  .kefu-btn img {
+    width: 200px;
+    max-width: 80%;
+    cursor: pointer;
+  }
 </style>
 </head>
 
 <body>
 
-<img src="kefu.jpg" alt="联系客服">
-<div class="tip">客服加载中，请稍候…</div>
+<h3>客服在线，请点击或直接留言</h3>
 
+<!-- 点击入口图片 -->
+<div class="kefu-btn">
+  <img src="kefu.jpg" alt="联系客服" onclick="openChat()">
+</div>
+
+<!-- Chatwoot SDK -->
 <script>
 (function(d,t) {
   var BASE_URL="https://app.chatwoot.com";
   var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
   g.src=BASE_URL+"/packs/js/sdk.js";
-  g.async = true;
+  g.async=true;
   s.parentNode.insertBefore(g,s);
 
   g.onload=function(){
@@ -45,12 +47,21 @@ img{
       baseUrl: BASE_URL
     });
 
-    // ✅ 关键：延迟强制弹出（必弹）
+    // ⭐ 页面加载完成后，自动弹客服（延迟 1 秒更稳）
     setTimeout(function(){
-      window.$chatwoot.toggle();
-    }, 1200);
+      if (window.$chatwoot) {
+        window.$chatwoot.toggle();
+      }
+    }, 1000);
   }
 })(document,"script");
+
+// 点击图片也能弹
+function openChat() {
+  if (window.$chatwoot) {
+    window.$chatwoot.toggle();
+  }
+}
 </script>
 
 </body>
