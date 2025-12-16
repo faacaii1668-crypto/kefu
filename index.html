@@ -16,39 +16,44 @@ body{
 }
 img{
   max-width:90%;
-  cursor:pointer;
+}
+.tip{
+  position:fixed;
+  bottom:20px;
+  color:#666;
+  font-size:14px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- 点击图片即弹客服 -->
-<img src="kefu.jpg" onclick="openChat()" alt="联系客服">
+<img src="kefu.jpg" alt="联系客服">
+<div class="tip">客服加载中，请稍候…</div>
 
 <script>
-(function(d){
+(function(d,t) {
   var BASE_URL="https://app.chatwoot.com";
-  var g=d.createElement("script"),s=d.getElementsByTagName("script")[0];
+  var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
   g.src=BASE_URL+"/packs/js/sdk.js";
-  g.async=true;
+  g.async = true;
   s.parentNode.insertBefore(g,s);
+
   g.onload=function(){
     window.chatwootSDK.run({
       websiteToken: "5ZCZDg2SwFgs9ZavdukzZnKU",
       baseUrl: BASE_URL
-    })
-  }
-})(document);
+    });
 
-function openChat(){
-  window.chatwootSDK.toggle();
-}
+    // ✅ 关键：延迟强制弹出（必弹）
+    setTimeout(function(){
+      window.$chatwoot.toggle();
+    }, 1200);
+  }
+})(document,"script");
 </script>
 
 </body>
-</html>
-
 </html>
 
 
